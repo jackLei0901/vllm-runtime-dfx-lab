@@ -1,0 +1,19 @@
+{
+  "captured_at": "2026-08-27T07:45:34.609800+00:00",
+  "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+  "python": "3.12.3 | packaged by Anaconda, Inc. | (main, May  6 2024, 19:46:43) [GCC 11.2.0]",
+  "executable": "/root/autodl-tmp/vllm-fp8-venv/bin/python",
+  "cpu_count": 224,
+  "gpus": [
+    {
+      "index": 0,
+      "uuid": "sha256:665ee346d217",
+      "memory_used_mib": 0,
+      "memory_total_mib": 24564,
+      "utilization_gpu_percent": 0,
+      "temperature_c": 33
+    }
+  ],
+  "torch": "2.13.0+cu130",
+  "vllm": "0.26.1rc1.dev1103+g7ca49fbe4"
+}
