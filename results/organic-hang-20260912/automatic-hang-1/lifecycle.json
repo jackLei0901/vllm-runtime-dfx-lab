@@ -1,0 +1,18 @@
+{
+  "rc": null,
+  "rank_pids": [
+    4912,
+    4913,
+    4914,
+    4915
+  ],
+  "cleanup": {
+    "pid_start_times_verified": true,
+    "term_rank_count": 4,
+    "term_group_sent": true,
+    "kill_rank_count": 4,
+    "kill_group_sent": false,
+    "remaining_tracked_pids": [],
+    "no_orphans": true
+  }
+}

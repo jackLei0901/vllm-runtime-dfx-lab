@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/vllm-runtime-reliability-lab/organic-hang-result-v1.schema.json",
+  "title": "Organic distributed-hang result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "case_id", "protocol_revision", "arm", "trial",
+    "source", "runtime", "preflight", "configuration", "topology",
+    "trigger", "outcome", "cleanup", "raw_persisted"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "case_id": {"const": "PYTORCH-FSDP-158719"},
+    "protocol_revision": {"const": "2026-09-12.6"},
+    "arm": {
+      "enum": ["detail_oracle", "automatic_hang", "post_gate_stack", "fixed_control"]
+    },
+    "trial": {"type": "integer", "minimum": 1, "maximum": 3},
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["upstream_sha256", "prepared_sha256"],
+      "properties": {
+        "upstream_sha256": {"const": "f23a41bebca5bcac51c6433ecc4a837fa3bbd1b5fd552c6701373619fafe0654"},
+        "prepared_sha256": {"enum": ["47fce815563b5ce8e94f93e18f1184b73fa0382ccd3934b7df02a90590c0a5a2", "430509263ad2c66786d63d0fa6936c0919bb45e8bf9984ffcb69fde5865c38d1"]}
+      }
+    },
+    "runtime": {
+      "type": "object", "additionalProperties": false,
+      "required": ["python", "torch", "torch_base_version", "cuda", "nccl", "driver", "gpu_model"],
+      "properties": {
+        "python": {"type": "string", "maxLength": 64},
+        "torch": {"type": "string", "maxLength": 64},
+        "torch_base_version": {"enum": ["2.11.0", "2.13.0"]},
+        "cuda": {"type": ["string", "null"], "maxLength": 64},
+        "nccl": {"type": ["string", "array", "null"]},
+        "driver": {"type": "string", "minLength": 1, "maxLength": 64},
+        "gpu_model": {"type": "string", "maxLength": 128}
+      }
+    },
+    "preflight": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "torch", "driver", "prepared_sha256", "visible_gpu_count", "py_spy_available"],
+      "properties": {
+        "status": {"const": "PASS"},
+        "torch": {"type": "string", "maxLength": 64},
+        "driver": {"type": "string", "minLength": 1, "maxLength": 64},
+        "prepared_sha256": {"enum": ["47fce815563b5ce8e94f93e18f1184b73fa0382ccd3934b7df02a90590c0a5a2", "430509263ad2c66786d63d0fa6936c0919bb45e8bf9984ffcb69fde5865c38d1"]},
+        "visible_gpu_count": {"const": 4},
+        "py_spy_available": {"type": "boolean"}
+      }
+    },
+    "configuration": {
+      "type": "object", "additionalProperties": false,
+      "required": ["training_steps", "anomaly_detection", "detail_enabled", "flight_recorder_trigger"],
+      "properties": {
+        "training_steps": {"const": 200},
+        "anomaly_detection": {"const": false},
+        "detail_enabled": {"type": "boolean"},
+        "flight_recorder_trigger": {"enum": ["none", "automatic_timeout", "manual_dump"]}
+      }
+    },
+    "topology": {
+      "type": "object", "additionalProperties": false,
+      "required": ["backend", "world_size", "pp_size", "dp_shard_size"],
+      "properties": {
+        "backend": {"const": "nccl"}, "world_size": {"const": 4},
+        "pp_size": {"const": 2}, "dp_shard_size": {"const": 2}
+      }
+    },
+    "trigger": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind", "timeout_seconds", "debug_pipe_used", "py_spy_started_before_artifact"],
+      "properties": {
+        "kind": {"enum": ["detail_wrapper", "automatic_timeout", "manual_dump", "normal_completion"]},
+        "timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 300},
+        "debug_pipe_used": {"type": "boolean"},
+        "py_spy_started_before_artifact": {"type": "boolean"}
+      }
+    },
+    "outcome": {
+      "type": "object", "additionalProperties": false,
+      "required": ["classification", "process_exit_code", "completed_training_steps", "oracle", "flight_recorder", "external_stack"],
+      "properties": {
+        "classification": {"enum": ["collective_mismatch", "hang", "completed", "setup_failure", "typed_miss"]},
+        "process_exit_code": {"type": ["integer", "null"]},
+        "completed_training_steps": {"type": "integer", "minimum": 0, "maximum": 200},
+        "oracle": {
+          "type": ["object", "null"], "additionalProperties": false,
+          "required": ["mismatch_detected", "monitored_barrier_error_count", "record_count", "primary_divergence", "normalized_fingerprint", "raw_persisted"],
+          "properties": {
+            "mismatch_detected": {"type": "boolean"},
+            "monitored_barrier_error_count": {"type": "integer", "minimum": 0},
+            "record_count": {"type": "integer", "minimum": 0},
+            "primary_divergence": {"anyOf": [{"$ref": "#/$defs/primary_divergence"}, {"type": "null"}]},
+            "normalized_fingerprint": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "raw_persisted": {"const": false}
+          }
+        },
+        "flight_recorder": {
+          "type": ["object", "null"], "additionalProperties": false,
+          "required": ["artifact_count", "primary_divergence", "secondary_divergence_count", "completed_collective_entries", "normalized_fingerprint", "raw_persisted"],
+          "properties": {
+            "artifact_count": {"type": "integer", "minimum": 0, "maximum": 4},
+            "primary_divergence": {"anyOf": [{"$ref": "#/$defs/primary_divergence"}, {"type": "null"}]},
+            "secondary_divergence_count": {"type": "integer", "minimum": 0},
+            "completed_collective_entries": {"type": "integer", "minimum": 0},
+            "normalized_fingerprint": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+            "raw_persisted": {"const": false}
+          }
+        },
+        "external_stack": {
+          "type": ["object", "null"], "additionalProperties": false,
+          "required": ["trial_count", "expected_incremental_value", "observed_incremental_value", "thread_join_outcomes", "raw_persisted"],
+          "properties": {
+            "trial_count": {"const": 3},
+            "expected_incremental_value": {"const": false},
+            "observed_incremental_value": {"type": "boolean"},
+            "thread_join_outcomes": {"type": "array", "items": {"enum": ["matched", "flight_thread_id_unavailable", "issuing_thread_not_sampled"]}},
+            "raw_persisted": {"const": false}
+          }
+        }
+      }
+    },
+    "cleanup": {
+      "type": "object", "additionalProperties": false,
+      "required": ["rank_pids_recorded", "pid_start_times_verified", "no_orphans"],
+      "properties": {
+        "rank_pids_recorded": {"type": "integer", "minimum": 0, "maximum": 4},
+        "pid_start_times_verified": {"type": "boolean"},
+        "no_orphans": {"type": "boolean"}
+      }
+    },
+    "raw_persisted": {"const": false}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"arm": {"const": "fixed_control"}}, "required": ["arm"]},
+      "then": {
+        "properties": {
+          "source": {"properties": {"prepared_sha256": {"const": "430509263ad2c66786d63d0fa6936c0919bb45e8bf9984ffcb69fde5865c38d1"}}},
+          "preflight": {"properties": {"prepared_sha256": {"const": "430509263ad2c66786d63d0fa6936c0919bb45e8bf9984ffcb69fde5865c38d1"}}},
+          "runtime": {"properties": {"torch_base_version": {"const": "2.13.0"}}}
+        }
+      },
+      "else": {
+        "properties": {
+          "source": {"properties": {"prepared_sha256": {"const": "47fce815563b5ce8e94f93e18f1184b73fa0382ccd3934b7df02a90590c0a5a2"}}},
+          "preflight": {"properties": {"prepared_sha256": {"const": "47fce815563b5ce8e94f93e18f1184b73fa0382ccd3934b7df02a90590c0a5a2"}}},
+          "runtime": {"properties": {"torch_base_version": {"const": "2.11.0"}}}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "rank_shapes": {
+      "type": "object", "additionalProperties": false,
+      "required": ["rank", "shapes"],
+      "properties": {
+        "rank": {"type": "integer", "minimum": 0, "maximum": 3},
+        "shapes": {"type": "array", "items": {"type": "array", "items": {"type": "integer", "minimum": 0}}}
+      }
+    },
+    "rank_dtypes": {
+      "type": "object", "additionalProperties": false,
+      "required": ["rank", "dtypes"],
+      "properties": {
+        "rank": {"type": "integer", "minimum": 0, "maximum": 3},
+        "dtypes": {"type": "array", "items": {"type": "string", "maxLength": 64}}
+      }
+    },
+    "primary_divergence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sequence_number", "operation", "group_members", "is_p2p", "input_shapes_by_rank", "input_dtypes_by_rank"],
+      "properties": {
+        "sequence_number": {"type": "integer", "minimum": 0},
+        "operation": {"type": "string", "minLength": 1, "maxLength": 64},
+        "group_members": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "integer", "minimum": 0, "maximum": 3}},
+        "is_p2p": {"type": "boolean"},
+        "input_shapes_by_rank": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/rank_shapes"}},
+        "input_dtypes_by_rank": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/rank_dtypes"}}
+      }
+    }
+  }
+}

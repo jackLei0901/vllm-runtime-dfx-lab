@@ -1,0 +1,17 @@
+{
+  "cuda": "13.0",
+  "driver": "580.105.08",
+  "gpu_model": "NVIDIA GeForce RTX 4090",
+  "nccl": [
+    2,
+    29,
+    7
+  ],
+  "prepared_sha256": "430509263ad2c66786d63d0fa6936c0919bb45e8bf9984ffcb69fde5865c38d1",
+  "ptrace_scope": "1",
+  "py_spy": "py-spy 0.4.2",
+  "python": "3.12.3",
+  "status": "PASS",
+  "torch": "2.13.0+cu130",
+  "visible_gpu_count": 4
+}

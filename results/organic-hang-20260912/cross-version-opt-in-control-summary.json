@@ -1,0 +1,43 @@
+{
+  "affected_arm_result": {
+    "automatic_flight_recorder_trials": 3,
+    "detail_oracle_trials": 3,
+    "semantic_match_trials": 3
+  },
+  "case_id": "PYTORCH-FSDP-158719",
+  "excluded_setup_candidate": {
+    "reason": "set_reduce_scatter_unused_params API absent",
+    "torch": "2.12.0+cu130"
+  },
+  "fixed_control": {
+    "elapsed_seconds": [
+      10,
+      11,
+      10
+    ],
+    "exit_codes": [
+      1,
+      1,
+      1
+    ],
+    "failure": "FSDP reduce-scatter expects uniform gradient dtype but got {torch.bfloat16, torch.float32}",
+    "orphan_counts": [
+      0,
+      0,
+      0
+    ],
+    "prepared_sha256": "430509263ad2c66786d63d0fa6936c0919bb45e8bf9984ffcb69fde5865c38d1",
+    "rank_pid_files": [
+      4,
+      4,
+      4
+    ],
+    "torch": "2.13.0+cu130",
+    "torch_git": "cf30153c4c131c8164ee7798e5022d810682e2cb",
+    "trial_count": 3
+  },
+  "protocol_revision": "2026-09-12.6",
+  "raw_persisted": false,
+  "schema_version": 1,
+  "status": "fixed_control_blocked"
+}

@@ -1,0 +1,18 @@
+{
+  "return_code_before_cleanup": 1,
+  "rank_pids": [
+    3945,
+    3946,
+    3947,
+    3948
+  ],
+  "cleanup": {
+    "pid_start_times_verified": true,
+    "term_rank_count": 0,
+    "term_group_sent": false,
+    "kill_rank_count": 0,
+    "kill_group_sent": false,
+    "remaining_tracked_pids": [],
+    "no_orphans": true
+  }
+}

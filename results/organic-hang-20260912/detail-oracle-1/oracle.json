@@ -1,0 +1,72 @@
+{
+  "mismatch_detected": true,
+  "monitored_barrier_error_count": 0,
+  "normalized_fingerprint": "cc5f0add99576a711b2b9212d7aa236009c01ff6bba60b7ff44cdbecbf9d6ea4",
+  "primary_divergence": {
+    "group_members": [
+      0,
+      1
+    ],
+    "input_dtypes_by_rank": [
+      {
+        "dtypes": [
+          "Float Float"
+        ],
+        "rank": 0
+      },
+      {
+        "dtypes": [
+          "Float Float"
+        ],
+        "rank": 1
+      }
+    ],
+    "input_shapes_by_rank": [
+      {
+        "rank": 0,
+        "shapes": [
+          [
+            1024
+          ]
+        ]
+      },
+      {
+        "rank": 1,
+        "shapes": [
+          [
+            960
+          ]
+        ]
+      }
+    ],
+    "is_p2p": false,
+    "operation": "_REDUCE_SCATTER_BASE",
+    "sequence_number": 4
+  },
+  "raw_persisted": false,
+  "records": [
+    {
+      "kind": "collective_mismatch",
+      "participants": [
+        {
+          "input_dtype": "Float Float",
+          "input_shape": [
+            1024
+          ],
+          "operation": "_REDUCE_SCATTER_BASE",
+          "rank": 0,
+          "sequence_number": 4
+        },
+        {
+          "input_dtype": "Float Float",
+          "input_shape": [
+            960
+          ],
+          "operation": "_REDUCE_SCATTER_BASE",
+          "rank": 1,
+          "sequence_number": 4
+        }
+      ]
+    }
+  ]
+}

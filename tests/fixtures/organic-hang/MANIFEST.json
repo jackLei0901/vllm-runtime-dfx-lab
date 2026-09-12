@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-09-10",
+  "generator": "experiments/organic-hang/generate_gloo_detail_fixtures.py",
+  "platform": "Windows CPU/Gloo",
+  "python": "3.12.14",
+  "torch": "2.11.0+cpu",
+  "raw_logs_retained": false,
+  "fixtures": {
+    "detail-long.txt": "valid long-form mismatch with nested TensorOptions",
+    "detail-degraded.txt": "genuine degraded fingerprint without a usable primary divergence",
+    "detail-barrier.txt": "genuine monitored-barrier timeout variant"
+  }
+}

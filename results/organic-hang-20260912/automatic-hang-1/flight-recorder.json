@@ -1,0 +1,84 @@
+{
+  "completed_collective_entries": 33,
+  "normalized_fingerprint": "37afcde76e1c2084adb4d9f9c61c250f17856f1a25e2004f4bb6830cac086966",
+  "primary_divergence": {
+    "group_members": [
+      0,
+      2
+    ],
+    "input_dtypes_by_rank": [
+      {
+        "dtypes": [
+          "Float"
+        ],
+        "rank": 0
+      },
+      {
+        "dtypes": [
+          "Float"
+        ],
+        "rank": 2
+      }
+    ],
+    "input_shapes_by_rank": [
+      {
+        "rank": 0,
+        "shapes": [
+          [
+            1024
+          ]
+        ]
+      },
+      {
+        "rank": 2,
+        "shapes": [
+          [
+            960
+          ]
+        ]
+      }
+    ],
+    "is_p2p": false,
+    "operation": "_REDUCE_SCATTER_BASE",
+    "sequence_number": 5
+  },
+  "secondary_divergences": [
+    {
+      "group_members": [
+        0,
+        1
+      ],
+      "is_p2p": false,
+      "present_ranks": [
+        1
+      ],
+      "reason": "missing_member",
+      "sequence_number": 2
+    },
+    {
+      "group_members": [
+        0,
+        2
+      ],
+      "is_p2p": false,
+      "present_ranks": [
+        2
+      ],
+      "reason": "missing_member",
+      "sequence_number": 6
+    },
+    {
+      "group_members": [
+        2,
+        3
+      ],
+      "is_p2p": false,
+      "present_ranks": [
+        2,
+        3
+      ],
+      "reason": "all_pending",
+      "sequence_number": 2
+    }
+  ]
+}
