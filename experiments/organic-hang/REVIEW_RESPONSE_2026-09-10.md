@@ -137,7 +137,7 @@ expected dtype contract; only then should the three D trials be rerun.
 The derived-only public package is under `results/organic-hang-20260912/` and
 contains a standalone post-run verifier. Its archive is
 `organic-evidence-public-derived-20260912.tgz`, SHA-256
-`06917a2e0872e2535dd842ba01debd6b10d12621d7dfd6b24c0b8374fb1a75d2`.
+`a7d0e4d3c90324f7e5d9c35f9f3e25ef43d7da1a56c65b4bb514f35172e820f8`.
 Raw stderr and prepared scripts remain only in the private audit archive; the
 private archive must not be published.
 

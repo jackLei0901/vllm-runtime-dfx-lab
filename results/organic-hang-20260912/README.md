@@ -42,6 +42,14 @@ the public package cannot independently prove its cleanup result. The
 cross-version opt-in control is retained only as an aggregate three-trial
 summary; it cannot be re-derived without the private audit archive.
 
+The run harness did not retain per-trial `summary.json` files. Therefore the
+generic `experiments/organic-hang/verify_organic_results.py` campaign verifier
+cannot be run against this derived-only package. Those summaries have not been
+reconstructed after the run: doing so from the protocol and retained outputs
+would not provide independent run-time provenance. The package-specific
+`verify_published_evidence.py` checks only claims supported by artifacts that
+were actually retained.
+
 The experiment directory was untracked at execution time. Protocol revision
 `2026-09-12.6` records the author's declared pre-run rules, but Git history
 cannot independently establish when those rules were frozen. Future campaigns

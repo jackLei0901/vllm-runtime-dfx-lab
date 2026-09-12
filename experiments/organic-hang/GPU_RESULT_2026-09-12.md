@@ -81,7 +81,7 @@ a successful control, and no threshold was changed after observing it.
 - The derived-only public evidence is under
   `results/organic-hang-20260912/` and includes a standalone post-run verifier.
 - Its packaged copy is `organic-evidence-public-derived-20260912.tgz`, SHA-256
-  `06917a2e0872e2535dd842ba01debd6b10d12621d7dfd6b24c0b8374fb1a75d2`.
+  `a7d0e4d3c90324f7e5d9c35f9f3e25ef43d7da1a56c65b4bb514f35172e820f8`.
 
 The experiment directory was untracked at execution time. Git history therefore
 cannot independently prove that protocol revision `2026-09-12.6` preceded the
